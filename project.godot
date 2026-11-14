@@ -26,5 +26,6 @@ window/stretch/aspect="expand"
 
 [rendering]
 
+viewport/hdr_2d=true
 rendering_device/driver.windows="d3d12"
 environment/defaults/default_clear_color=Color(0.13749945, 0.09000998, 0.5669625, 1)

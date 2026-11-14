@@ -7,10 +7,19 @@ const LEVELS := ["res://level.tscn", "res://level_2.tscn", "res://level_3.tscn"]
 @export_file("*.tscn") var next_scene := ""
 
 @onready var win_label: Label = $WinLabel
+@onready var star: Polygon2D = $Star
+@onready var glow: Sprite2D = $Glow
 
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
+
+	# star spins and the glow breathes so u literally can't miss it
+	var spin := create_tween().set_loops()
+	spin.tween_property(star, "rotation", TAU, 3.0).from(0.0)
+	var breathe := create_tween().set_loops().set_trans(Tween.TRANS_SINE)
+	breathe.tween_property(glow, "scale", Vector2(4.6, 4.6), 0.7)
+	breathe.tween_property(glow, "scale", Vector2(3.6, 3.6), 0.7)
 
 
 func _on_body_entered(body: Node2D) -> void:

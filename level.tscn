@@ -4,6 +4,10 @@
 [ext_resource type="PackedScene" path="res://bounce_pad.tscn" id="pad_scene"]
 [ext_resource type="Script" uid="uid://ddrgteiv40wxk" path="res://player.gd" id="player_script"]
 [ext_resource type="PackedScene" path="res://spikes.tscn" id="spikes_scene"]
+[ext_resource type="PackedScene" path="res://background.tscn" id="bg_scene"]
+[ext_resource type="PackedScene" path="res://trail.tscn" id="trail_scene"]
+[ext_resource type="StyleBoxFlat" path="res://wall_style.tres" id="wall_style"]
+[ext_resource type="StyleBoxFlat" path="res://platform_style.tres" id="platform_style"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ootsg"]
 size = Vector2(200, 20)
@@ -26,6 +30,8 @@ bounce = 0.6
 [node name="Level" type="Node2D" unique_id=927345106]
 position = Vector2(0, 90)
 
+[node name="Background" parent="." instance=ExtResource("bg_scene")]
+
 [node name="Platform" type="StaticBody2D" parent="." unique_id=1157057678]
 position = Vector2(-1, 90)
 
@@ -33,12 +39,13 @@ position = Vector2(-1, 90)
 position = Vector2(0, 144)
 shape = SubResource("RectangleShape2D_ootsg")
 
-[node name="ColorRect" type="ColorRect" parent="Platform" unique_id=1775615951]
+[node name="Panel" type="Panel" parent="Platform" unique_id=1775615951]
 offset_left = -98.0
 offset_top = 136.0
 offset_right = 102.0
 offset_bottom = 156.0
-color = Color(0.29803923, 0.6862745, 0.3137255, 1)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("platform_style")
 
 [node name="TextEdit" type="TextEdit" parent="Platform" unique_id=1810677537]
 offset_left = -252.0
@@ -57,6 +64,9 @@ script = ExtResource("player_script")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=996561266]
 position = Vector2(0, 90)
 shape = SubResource("CircleShape2D_iadlp")
+
+[node name="Trail" parent="Player" instance=ExtResource("trail_scene")]
+position = Vector2(0, 90)
 
 [node name="Body" type="Polygon2D" parent="Player" unique_id=430824870]
 position = Vector2(0, 90)
@@ -107,12 +117,13 @@ physics_material_override = SubResource("PhysicsMaterial_wall")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=240196572]
 shape = SubResource("RectangleShape2D_LeftWall")
 
-[node name="ColorRect" type="ColorRect" parent="LeftWall" unique_id=21147775]
+[node name="Panel" type="Panel" parent="LeftWall" unique_id=21147775]
 offset_left = -20.0
 offset_top = -600.0
 offset_right = 20.0
 offset_bottom = 600.0
-color = Color(0.25, 0.27, 0.33, 1)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
 
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=1727963192]
 position = Vector2(1620, -300)
@@ -121,12 +132,13 @@ physics_material_override = SubResource("PhysicsMaterial_wall")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=351621079]
 shape = SubResource("RectangleShape2D_RightWall")
 
-[node name="ColorRect" type="ColorRect" parent="RightWall" unique_id=1075664047]
+[node name="Panel" type="Panel" parent="RightWall" unique_id=1075664047]
 offset_left = -20.0
 offset_top = -600.0
 offset_right = 20.0
 offset_bottom = 600.0
-color = Color(0.25, 0.27, 0.33, 1)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
 
 [node name="BigWall" type="StaticBody2D" parent="." unique_id=1660744514]
 position = Vector2(650, 150)
@@ -135,12 +147,13 @@ physics_material_override = SubResource("PhysicsMaterial_wall")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigWall" unique_id=1405653425]
 shape = SubResource("RectangleShape2D_BigWall")
 
-[node name="ColorRect" type="ColorRect" parent="BigWall" unique_id=512559400]
+[node name="Panel" type="Panel" parent="BigWall" unique_id=512559400]
 offset_left = -20.0
 offset_top = -150.0
 offset_right = 20.0
 offset_bottom = 150.0
-color = Color(0.25, 0.27, 0.33, 1)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
 
 [node name="WallTopSpikes" parent="." unique_id=90711932 instance=ExtResource("spikes_scene")]
 position = Vector2(650, -12)

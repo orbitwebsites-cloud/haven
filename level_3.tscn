@@ -1,10 +1,13 @@
 [gd_scene format=3]
 
+[ext_resource type="PackedScene" path="res://background.tscn" id="bg"]
 [ext_resource type="PackedScene" path="res://player.tscn" id="player"]
 [ext_resource type="PackedScene" path="res://bounce_pad.tscn" id="pad"]
 [ext_resource type="PackedScene" path="res://spikes.tscn" id="spikes"]
 [ext_resource type="PackedScene" path="res://goal.tscn" id="goal"]
 [ext_resource type="PackedScene" path="res://secret_portal.tscn" id="portal"]
+[ext_resource type="StyleBoxFlat" path="res://wall_style.tres" id="wall_style"]
+[ext_resource type="StyleBoxFlat" path="res://platform_style.tres" id="platform_style"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wall"]
 bounce = 0.6
@@ -20,12 +23,16 @@ size = Vector2(200.0, 20.0)
 
 [node name="Level3" type="Node2D"]
 
+[node name="Background" parent="." instance=ExtResource("bg")]
+
 [node name="Title" type="Label" parent="."]
 offset_left = -170.0
 offset_top = -20.0
 offset_right = 530.0
 offset_bottom = 40.0
 theme_override_colors/font_color = Color(1, 1, 1, 0.9)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 40
 text = "LEVEL 3 - THE CLIMB"
 
@@ -36,12 +43,13 @@ physics_material_override = SubResource("PhysicsMaterial_wall")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
 shape = SubResource("RectangleShape2D_LeftWall")
 
-[node name="ColorRect" type="ColorRect" parent="LeftWall"]
+[node name="Panel" type="Panel" parent="LeftWall"]
 offset_left = -20.0
 offset_top = -900.0
 offset_right = 20.0
 offset_bottom = 900.0
-color = Color(0.25, 0.27, 0.33, 1)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
 
 [node name="RightWall" type="StaticBody2D" parent="."]
 position = Vector2(620.0, -600.0)
@@ -50,12 +58,13 @@ physics_material_override = SubResource("PhysicsMaterial_wall")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
 shape = SubResource("RectangleShape2D_RightWall")
 
-[node name="ColorRect" type="ColorRect" parent="RightWall"]
+[node name="Panel" type="Panel" parent="RightWall"]
 offset_left = -20.0
 offset_top = -900.0
 offset_right = 20.0
 offset_bottom = 900.0
-color = Color(0.25, 0.27, 0.33, 1)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
 
 [node name="Platform" type="StaticBody2D" parent="."]
 position = Vector2(0.0, 200.0)
@@ -63,12 +72,13 @@ position = Vector2(0.0, 200.0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
 shape = SubResource("RectangleShape2D_Platform")
 
-[node name="ColorRect" type="ColorRect" parent="Platform"]
+[node name="Panel" type="Panel" parent="Platform"]
 offset_left = -100.0
 offset_top = -10.0
 offset_right = 100.0
 offset_bottom = 10.0
-color = Color(0.3, 0.69, 0.31, 1)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("platform_style")
 
 [node name="BouncePad1" parent="." instance=ExtResource("pad")]
 position = Vector2(520.0, 60.0)

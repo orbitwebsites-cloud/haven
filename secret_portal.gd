@@ -9,7 +9,7 @@ func _ready() -> void:
 
 	# slow shimmer so it's barely there. gotta squint fr
 	var shimmer := create_tween().set_loops()
-	shimmer.tween_property(self, "modulate:a", 0.2, 1.4)
+	shimmer.tween_property(self, "modulate:a", 0.14, 1.4)
 	shimmer.tween_property(self, "modulate:a", 0.05, 1.4)
 
 

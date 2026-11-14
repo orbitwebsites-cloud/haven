@@ -7,6 +7,7 @@ var squish_tween: Tween
 
 @onready var visual: Node2D = $Visual
 @onready var arrow: Polygon2D = $Visual/Arrow
+@onready var sparks: CPUParticles2D = $Sparks
 
 
 func _ready() -> void:
@@ -25,8 +26,9 @@ func _on_body_entered(body: Node2D) -> void:
 		boing()
 
 
-# squish down then spring back up all wobbly. pure boing energy
+# sparks fly, then squish down and spring back up all wobbly. pure boing energy
 func boing() -> void:
+	sparks.restart()
 	if squish_tween:
 		squish_tween.kill()
 	squish_tween = create_tween()

@@ -1,0 +1,54 @@
+[gd_scene format=3]
+
+[ext_resource type="GradientTexture2D" path="res://soft_dot.tres" id="dot"]
+
+[sub_resource type="Gradient" id="Gradient_sky"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(0.0023, 0.0023, 0.0134, 1, 0.01, 0.006, 0.0732, 1, 0.0732, 0.0134, 0.1707, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sky"]
+gradient = SubResource("Gradient_sky")
+use_hdr = true
+width = 8
+height = 256
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="Gradient" id="Gradient_twinkle"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.9, 1, 1, 1, 0)
+
+[sub_resource type="Environment" id="Environment_glow"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.7
+glow_blend_mode = 1
+
+[node name="Background" type="CanvasLayer"]
+layer = -10
+
+[node name="Sky" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_sky")
+expand_mode = 1
+
+[node name="Stars" type="CPUParticles2D" parent="."]
+position = Vector2(576, 324)
+amount = 90
+lifetime = 5.0
+preprocess = 5.0
+texture = ExtResource("dot")
+emission_shape = 3
+emission_rect_extents = Vector2(1100, 600)
+gravity = Vector2(0, 0)
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+color_ramp = SubResource("Gradient_twinkle")
+
+[node name="Glow" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_glow")
