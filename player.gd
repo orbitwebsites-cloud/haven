@@ -16,6 +16,18 @@ var restarting := false
 @onready var trail = $Trail
 
 
+func _ready() -> void:
+	# wear whatever got picked on the customize screen, and match the speed line to it
+	Wardrobe.dress($Body, Game.color, Game.hat)
+	trail.default_color = $Body.color.lightened(0.35)
+
+	# so we hear about it when we smack a wall. paper walls rip when we hit em
+	contact_monitor = true
+	max_contacts_reported = 4
+	body_entered.connect(_on_bump)
+
+
+
 func _input(event: InputEvent) -> void:
 	# gotta be _input not _unhandled_input, the ColorRects were lowkey stealing every click
 	if has_shot or not (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT):
@@ -59,7 +71,8 @@ func _physics_process(delta: float) -> void:
 
 # pull back away from where u wanna go, like a real slingshot
 func get_pull() -> Vector2:
-	return (global_position - get_global_mouse_position()).limit_length(max_pull)
+	# measured from where the aim line starts, bc level 1's ball is drawn a bit below its body
+	return (aim_line.global_position - get_global_mouse_position()).limit_length(max_pull)
 
 
 # spikes call this too and u can hit two at once, so only reset one time fr
@@ -67,4 +80,11 @@ func restart() -> void:
 	if restarting:
 		return
 	restarting = true
+	# that guy's done for. u draw the next one
+	Game.guy += 1
 	get_tree().reload_current_scene.call_deferred()
+
+
+func _on_bump(body: Node) -> void:
+	if body.has_method("smash"):
+		body.smash()

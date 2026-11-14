@@ -1,7 +1,8 @@
 shader_type canvas_item;
 
 // makes the whole screen look hand drawn: wobbly lines, pen outlines, marker streaks, lined paper.
-// swap paper_color / ink_color / rule_color to change the vibe (dark paper + white ink = chalkboard)
+// swap ink_color / rule_color to change the vibe. paper_color has to match the Paper rect in background.tscn
+// and the clear colour in project settings, change all three together (dark paper + white ink = chalkboard)
 
 uniform sampler2D screen_tex : hint_screen_texture, filter_linear, repeat_disable;
 uniform sampler2D noise_tex : repeat_enable, filter_linear;
@@ -16,9 +17,9 @@ uniform float rule_gap = 34.0;
 uniform float rule_strength = 0.45;
 
 void fragment() {
-	// work in "design pixels" (648 tall) so it looks the same at any window size
+	// work in "design pixels" (1152 x 648, whichever side runs out first) so it looks the same at any window size
 	vec2 px = SCREEN_PIXEL_SIZE;
-	float zoom = 1.0 / (px.y * 648.0);
+	float zoom = min(1.0 / (px.x * 1152.0), 1.0 / (px.y * 648.0));
 	vec2 design = SCREEN_UV / (px * zoom);
 
 	// the wobble jumps a few times a second, like every frame got redrawn by hand

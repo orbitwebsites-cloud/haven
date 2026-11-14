@@ -1,0 +1,242 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://background.tscn" id="bg"]
+[ext_resource type="PackedScene" path="res://player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://bounce_pad.tscn" id="pad"]
+[ext_resource type="PackedScene" path="res://spikes.tscn" id="spikes"]
+[ext_resource type="PackedScene" path="res://goal.tscn" id="goal"]
+[ext_resource type="StyleBoxFlat" path="res://wall_style.tres" id="wall_style"]
+[ext_resource type="StyleBoxFlat" path="res://platform_style.tres" id="platform_style"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wall"]
+bounce = 0.6
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_LeftWall"]
+size = Vector2(40.0, 2240.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_RightWall"]
+size = Vector2(40.0, 2240.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Ledge1"]
+size = Vector2(144.0, 40.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Ledge2"]
+size = Vector2(384.0, 40.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Ledge3"]
+size = Vector2(384.0, 40.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Floor"]
+size = Vector2(640.0, 40.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Platform"]
+size = Vector2(200.0, 20.0)
+
+[node name="Level5" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("bg")]
+
+[node name="Title" type="Label" parent="."]
+offset_left = -130.0
+offset_top = -200.0
+offset_right = 570.0
+offset_bottom = -140.0
+theme_override_colors/font_color = Color(0.13, 0.13, 0.2, 1)
+theme_override_font_sizes/font_size = 44
+text = "LEVEL 5 - THE DROP"
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-160.0, 540.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("RectangleShape2D_LeftWall")
+
+[node name="Panel" type="Panel" parent="LeftWall"]
+offset_left = -20.0
+offset_top = -1120.0
+offset_right = 20.0
+offset_bottom = 1120.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(520.0, 540.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("RectangleShape2D_RightWall")
+
+[node name="Panel" type="Panel" parent="RightWall"]
+offset_left = -20.0
+offset_top = -1120.0
+offset_right = 20.0
+offset_bottom = 1120.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="Ledge1" type="StaticBody2D" parent="."]
+position = Vector2(172.0, 110.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ledge1"]
+shape = SubResource("RectangleShape2D_Ledge1")
+
+[node name="Panel" type="Panel" parent="Ledge1"]
+offset_left = -72.0
+offset_top = -20.0
+offset_right = 72.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="Ledge2" type="StaticBody2D" parent="."]
+position = Vector2(308.0, 550.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ledge2"]
+shape = SubResource("RectangleShape2D_Ledge2")
+
+[node name="Panel" type="Panel" parent="Ledge2"]
+offset_left = -192.0
+offset_top = -20.0
+offset_right = 192.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="Ledge3" type="StaticBody2D" parent="."]
+position = Vector2(52.0, 950.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ledge3"]
+shape = SubResource("RectangleShape2D_Ledge3")
+
+[node name="Panel" type="Panel" parent="Ledge3"]
+offset_left = -192.0
+offset_top = -20.0
+offset_right = 192.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(180.0, 1640.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_Floor")
+
+[node name="Panel" type="Panel" parent="Floor"]
+offset_left = -320.0
+offset_top = -20.0
+offset_right = 320.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(0.0, 100.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+shape = SubResource("RectangleShape2D_Platform")
+
+[node name="Panel" type="Panel" parent="Platform"]
+offset_left = -100.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 10.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("platform_style")
+
+[node name="BouncePad1" parent="." instance=ExtResource("pad")]
+position = Vector2(430.0, 330.0)
+rotation = -1.047198
+strength = 500.0
+
+[node name="BouncePad2" parent="." instance=ExtResource("pad")]
+position = Vector2(-70.0, 700.0)
+rotation = 1.047198
+strength = 500.0
+
+[node name="BouncePad3" parent="." instance=ExtResource("pad")]
+position = Vector2(430.0, 1100.0)
+rotation = -1.047198
+strength = 500.0
+
+[node name="Ledge1Spikes" type="Node2D" parent="."]
+position = Vector2(0, 74.0)
+
+[node name="Spikes1" parent="Ledge1Spikes" instance=ExtResource("spikes")]
+position = Vector2(180.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Ledge2Spikes" type="Node2D" parent="."]
+position = Vector2(0, 514.0)
+
+[node name="Spikes1" parent="Ledge2Spikes" instance=ExtResource("spikes")]
+position = Vector2(180.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes2" parent="Ledge2Spikes" instance=ExtResource("spikes")]
+position = Vector2(308.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes3" parent="Ledge2Spikes" instance=ExtResource("spikes")]
+position = Vector2(436.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Ledge3Spikes" type="Node2D" parent="."]
+position = Vector2(0, 914.0)
+
+[node name="Spikes1" parent="Ledge3Spikes" instance=ExtResource("spikes")]
+position = Vector2(-76.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes2" parent="Ledge3Spikes" instance=ExtResource("spikes")]
+position = Vector2(52.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes3" parent="Ledge3Spikes" instance=ExtResource("spikes")]
+position = Vector2(180.0, 0)
+scale = Vector2(2, 2)
+
+[node name="SpikeFloor" type="Node2D" parent="."]
+position = Vector2(0, 1604.0)
+
+[node name="Spikes1" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(-76.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes2" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(52.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes3" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(180.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes4" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(308.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes5" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(436.0, 0)
+scale = Vector2(2, 2)
+
+[node name="RightWallSpikes1" parent="." instance=ExtResource("spikes")]
+position = Vector2(484.0, -116.0)
+rotation = -1.570796
+scale = Vector2(2, 2)
+
+[node name="RightWallSpikes2" parent="." instance=ExtResource("spikes")]
+position = Vector2(484.0, 12.0)
+rotation = -1.570796
+scale = Vector2(2, 2)
+
+[node name="Goal" parent="." instance=ExtResource("goal")]
+position = Vector2(-60.0, 1400.0)
+scale = Vector2(1.0, 1.0)
+
+[node name="Player" parent="." instance=ExtResource("player")]
+position = Vector2(0.0, 40.0)

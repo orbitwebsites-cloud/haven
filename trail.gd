@@ -8,7 +8,7 @@ var active := false
 var spots: Array[Vector2] = []
 
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if active:
 		spots.append(global_position)
 	# too long, or we stopped flying? eat the oldest bit so it shrinks away

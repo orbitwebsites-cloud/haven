@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://lil_guy.gd" id="1"]
+
+[node name="LilGuy" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Face" type="Node2D" parent="."]
+
+[node name="Sharpie" type="Polygon2D" parent="Face"]
+visible = false
+scale = Vector2(1.17, 1.17)
+color = Color(0.07, 0.07, 0.1, 1)
+polygon = PackedVector2Array(32, 0, 31.39, 6.24, 29.56, 12.25, 26.61, 17.78, 22.63, 22.63, 17.78, 26.61, 12.25, 29.56, 6.24, 31.39, 0, 32, -6.24, 31.39, -12.25, 29.56, -17.78, 26.61, -22.63, 22.63, -26.61, 17.78, -29.56, 12.25, -31.39, 6.24, -32, 0, -31.39, -6.24, -29.56, -12.25, -26.61, -17.78, -22.63, -22.63, -17.78, -26.61, -12.25, -29.56, -6.24, -31.39, 0, -32, 6.24, -31.39, 12.25, -29.56, 17.78, -26.61, 22.63, -22.63, 26.61, -17.78, 29.56, -12.25, 31.39, -6.24)
+
+[node name="Body" type="Polygon2D" parent="Face"]
+color = Color(0.3, 0.6, 1, 1)
+polygon = PackedVector2Array(32, 0, 31.39, 6.24, 29.56, 12.25, 26.61, 17.78, 22.63, 22.63, 17.78, 26.61, 12.25, 29.56, 6.24, 31.39, 0, 32, -6.24, 31.39, -12.25, 29.56, -17.78, 26.61, -22.63, 22.63, -26.61, 17.78, -29.56, 12.25, -31.39, 6.24, -32, 0, -31.39, -6.24, -29.56, -12.25, -26.61, -17.78, -22.63, -22.63, -17.78, -26.61, -12.25, -29.56, -6.24, -31.39, 0, -32, 6.24, -31.39, 12.25, -29.56, 17.78, -26.61, 22.63, -22.63, 26.61, -17.78, 29.56, -12.25, 31.39, -6.24)
+
+[node name="LeftEye" type="Polygon2D" parent="Face"]
+polygon = PackedVector2Array(-20, -18, -8, -18, -8, -6, -20, -6)
+
+[node name="LeftPupil" type="Polygon2D" parent="Face"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-15, -14, -10, -14, -10, -9, -15, -9)
+
+[node name="RightEye" type="Polygon2D" parent="Face"]
+polygon = PackedVector2Array(8, -18, 20, -18, 20, -6, 8, -6)
+
+[node name="RightPupil" type="Polygon2D" parent="Face"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(13, -14, 18, -14, 18, -9, 13, -9)
+
+[node name="Smile" type="Line2D" parent="Face"]
+points = PackedVector2Array(-14, 6, -8, 13, 0, 15, 8, 13, 14, 6)
+width = 4.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Number" type="Label" parent="."]
+visible = false
+offset_left = -70.0
+offset_top = 50.0
+offset_right = 70.0
+offset_bottom = 96.0
+theme_override_colors/font_color = Color(0.13, 0.13, 0.2, 1)
+theme_override_font_sizes/font_size = 34
+text = "#1"
+horizontal_alignment = 1

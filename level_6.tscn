@@ -1,0 +1,348 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://background.tscn" id="bg"]
+[ext_resource type="PackedScene" path="res://player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://bounce_pad.tscn" id="pad"]
+[ext_resource type="PackedScene" path="res://spikes.tscn" id="spikes"]
+[ext_resource type="PackedScene" path="res://goal.tscn" id="goal"]
+[ext_resource type="StyleBoxFlat" path="res://wall_style.tres" id="wall_style"]
+[ext_resource type="StyleBoxFlat" path="res://platform_style.tres" id="platform_style"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wall"]
+bounce = 0.6
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_LeftWall"]
+size = Vector2(40.0, 1200.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_RightWall"]
+size = Vector2(40.0, 912.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Hurdle1"]
+size = Vector2(128.0, 346.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Hurdle2"]
+size = Vector2(128.0, 314.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Hurdle3"]
+size = Vector2(128.0, 526.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_LidLeft"]
+size = Vector2(256.0, 40.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_LidRight"]
+size = Vector2(156.0, 40.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Platform"]
+size = Vector2(200.0, 20.0)
+
+[node name="Level6" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("bg")]
+
+[node name="Title" type="Label" parent="."]
+offset_left = -290.0
+offset_top = -270.0
+offset_right = 410.0
+offset_bottom = -210.0
+theme_override_colors/font_color = Color(0.13, 0.13, 0.2, 1)
+theme_override_font_sizes/font_size = 44
+text = "LEVEL 6 - HOME STRETCH"
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-320.0, -300.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("RectangleShape2D_LeftWall")
+
+[node name="Panel" type="Panel" parent="LeftWall"]
+offset_left = -20.0
+offset_top = -600.0
+offset_right = 20.0
+offset_bottom = 600.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(3030.0, -150.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("RectangleShape2D_RightWall")
+
+[node name="Panel" type="Panel" parent="RightWall"]
+offset_left = -20.0
+offset_top = -456.0
+offset_right = 20.0
+offset_bottom = 456.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="Hurdle1" type="StaticBody2D" parent="."]
+position = Vector2(1400.0, 133.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurdle1"]
+shape = SubResource("RectangleShape2D_Hurdle1")
+
+[node name="Panel" type="Panel" parent="Hurdle1"]
+offset_left = -64.0
+offset_top = -173.0
+offset_right = 64.0
+offset_bottom = 173.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="Hurdle2" type="StaticBody2D" parent="."]
+position = Vector2(2100.0, 149.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurdle2"]
+shape = SubResource("RectangleShape2D_Hurdle2")
+
+[node name="Panel" type="Panel" parent="Hurdle2"]
+offset_left = -64.0
+offset_top = -157.0
+offset_right = 64.0
+offset_bottom = 157.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="Hurdle3" type="StaticBody2D" parent="."]
+position = Vector2(2560.0, 43.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurdle3"]
+shape = SubResource("RectangleShape2D_Hurdle3")
+
+[node name="Panel" type="Panel" parent="Hurdle3"]
+offset_left = -64.0
+offset_top = -263.0
+offset_right = 64.0
+offset_bottom = 263.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="LidLeft" type="StaticBody2D" parent="."]
+position = Vector2(2598.0, -554.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LidLeft"]
+shape = SubResource("RectangleShape2D_LidLeft")
+
+[node name="Panel" type="Panel" parent="LidLeft"]
+offset_left = -128.0
+offset_top = -20.0
+offset_right = 128.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="LidRight" type="StaticBody2D" parent="."]
+position = Vector2(2932.0, -554.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LidRight"]
+shape = SubResource("RectangleShape2D_LidRight")
+
+[node name="Panel" type="Panel" parent="LidRight"]
+offset_left = -78.0
+offset_top = -20.0
+offset_right = 78.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(0.0, 100.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+shape = SubResource("RectangleShape2D_Platform")
+
+[node name="Panel" type="Panel" parent="Platform"]
+offset_left = -100.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 10.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("platform_style")
+
+[node name="BouncePad1" parent="." instance=ExtResource("pad")]
+position = Vector2(500.0, 200.0)
+rotation = 0.698132
+strength = 1200.0
+
+[node name="BouncePad2" parent="." instance=ExtResource("pad")]
+position = Vector2(1770.0, 200.0)
+rotation = 0.401426
+scale = Vector2(0.8, 1)
+strength = 920.0
+
+[node name="BouncePad3" parent="." instance=ExtResource("pad")]
+position = Vector2(2320.0, 200.0)
+rotation = 0.209440
+scale = Vector2(0.8, 1)
+strength = 1150.0
+
+[node name="BouncePad4" parent="." instance=ExtResource("pad")]
+position = Vector2(2790.0, 200.0)
+rotation = 0.000000
+scale = Vector2(0.8, 1)
+strength = 1350.0
+
+[node name="SpikeFloor" type="Node2D" parent="."]
+position = Vector2(0, 290.0)
+
+[node name="Spikes1" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(-256.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes2" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(-128.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes3" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(0.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes4" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(128.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes5" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(256.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes6" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(384.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes7" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(512.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes8" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(640.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes9" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(768.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes10" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(896.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes11" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(1024.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes12" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(1152.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes13" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(1280.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes14" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(1408.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes15" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(1536.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes16" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(1664.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes17" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(1792.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes18" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(1920.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes19" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(2048.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes20" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(2176.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes21" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(2304.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes22" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(2432.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes23" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(2560.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes24" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(2688.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes25" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(2816.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes26" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(2944.0, 0)
+scale = Vector2(2, 2)
+
+[node name="LidSpikesLeft" type="Node2D" parent="."]
+position = Vector2(0, -518.0)
+
+[node name="Spikes1" parent="LidSpikesLeft" instance=ExtResource("spikes")]
+position = Vector2(2534.0, 0)
+rotation = 3.141593
+scale = Vector2(2, 2)
+
+[node name="Spikes2" parent="LidSpikesLeft" instance=ExtResource("spikes")]
+position = Vector2(2662.0, 0)
+rotation = 3.141593
+scale = Vector2(2, 2)
+
+[node name="LidSpikesRight" type="Node2D" parent="."]
+position = Vector2(0, -518.0)
+
+[node name="Spikes1" parent="LidSpikesRight" instance=ExtResource("spikes")]
+position = Vector2(2918.0, 0)
+rotation = 3.141593
+scale = Vector2(2, 2)
+
+[node name="Hurdle1Top" parent="." instance=ExtResource("spikes")]
+position = Vector2(1400.0, -56.0)
+scale = Vector2(2, 2)
+
+[node name="Hurdle1Face" parent="." instance=ExtResource("spikes")]
+position = Vector2(1320.0, 24.0)
+rotation = -1.570796
+scale = Vector2(2, 2)
+
+[node name="Hurdle2Top" parent="." instance=ExtResource("spikes")]
+position = Vector2(2100.0, -24.0)
+scale = Vector2(2, 2)
+
+[node name="Hurdle2Face" parent="." instance=ExtResource("spikes")]
+position = Vector2(2020.0, 56.0)
+rotation = -1.570796
+scale = Vector2(2, 2)
+
+[node name="Hurdle3Top" parent="." instance=ExtResource("spikes")]
+position = Vector2(2560.0, -236.0)
+scale = Vector2(2, 2)
+
+[node name="Goal" parent="." instance=ExtResource("goal")]
+position = Vector2(2790.0, -562.0)
+scale = Vector2(0.6, 0.6)
+
+[node name="Player" parent="." instance=ExtResource("player")]
+position = Vector2(0.0, 40.0)

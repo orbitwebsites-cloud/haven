@@ -2,20 +2,17 @@ extends Control
 
 # u beat the secret level so ur literally him. this is the victory lap
 
-@onready var goat: Node2D = $Goat
-@onready var shades: Node2D = $Goat/Shades
-@onready var title: Label = $Title
-@onready var hint: Label = $Hint
-@onready var confetti: CPUParticles2D = $Confetti
-
 var can_leave := false
+
+@onready var goat: Node2D = $Center/Goat
+@onready var shades: Node2D = $Center/Goat/Shades
+@onready var title: Label = $Center/Title
+@onready var hint: Label = $Hint
 
 
 func _ready() -> void:
-	var screen := get_viewport_rect().size
-	goat.position = Vector2(screen.x / 2, screen.y / 2 + 70)
-	confetti.position = Vector2(screen.x / 2, -20)
-	confetti.emission_rect_extents = Vector2(screen.x / 2, 10)
+	# the goat goes over this guy in sharpie. he's permanent now
+	Game.sharpie = true
 
 	# goat vibing on loop, bobbing and swaying
 	var bob := create_tween().set_loops().set_trans(Tween.TRANS_SINE)
@@ -33,7 +30,6 @@ func _ready() -> void:
 	drop.tween_property(shades, "position", shades_spot, 0.5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 
 	# title pops in once the shades land, then keeps pulsing bc why not
-	title.pivot_offset = Vector2(screen.x / 2, 60)
 	title.scale = Vector2.ZERO
 	var pop := create_tween()
 	pop.tween_interval(1.1)
@@ -58,6 +54,6 @@ func pulse_title() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	# click or press anything to run it back from level 1
+	# click or press anything and he heads to haven
 	if can_leave and event.is_pressed() and not event.is_echo():
-		get_tree().change_scene_to_file("res://level.tscn")
+		get_tree().change_scene_to_file("res://haven.tscn")

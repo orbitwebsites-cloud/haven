@@ -1,19 +1,22 @@
 [gd_scene format=3 uid="uid://dde0ndyea1wel"]
 
+[ext_resource type="PackedScene" path="res://background.tscn" id="bg_scene"]
 [ext_resource type="PackedScene" path="res://goal.tscn" id="goal_scene"]
 [ext_resource type="PackedScene" path="res://bounce_pad.tscn" id="pad_scene"]
+[ext_resource type="StyleBox" path="res://platform_style.tres" id="platform_style"]
 [ext_resource type="Script" uid="uid://ddrgteiv40wxk" path="res://player.gd" id="player_script"]
 [ext_resource type="PackedScene" path="res://spikes.tscn" id="spikes_scene"]
-[ext_resource type="PackedScene" path="res://background.tscn" id="bg_scene"]
 [ext_resource type="PackedScene" path="res://trail.tscn" id="trail_scene"]
-[ext_resource type="StyleBoxFlat" path="res://wall_style.tres" id="wall_style"]
-[ext_resource type="StyleBoxFlat" path="res://platform_style.tres" id="platform_style"]
+[ext_resource type="StyleBox" path="res://wall_style.tres" id="wall_style"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ootsg"]
 size = Vector2(200, 20)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iadlp"]
 radius = 32.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wall"]
+bounce = 0.6
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_LeftWall"]
 size = Vector2(40, 1200)
@@ -24,13 +27,10 @@ size = Vector2(40, 1200)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_BigWall"]
 size = Vector2(40, 300)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wall"]
-bounce = 0.6
-
 [node name="Level" type="Node2D" unique_id=927345106]
 position = Vector2(0, 90)
 
-[node name="Background" parent="." instance=ExtResource("bg_scene")]
+[node name="Background" parent="." unique_id=1425621554 instance=ExtResource("bg_scene")]
 
 [node name="Platform" type="StaticBody2D" parent="." unique_id=1157057678]
 position = Vector2(-1, 90)
@@ -47,15 +47,6 @@ offset_bottom = 156.0
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("platform_style")
 
-[node name="Hint" type="Label" parent="Platform" unique_id=1810677537]
-offset_left = -252.0
-offset_top = -378.0
-offset_right = 168.0
-offset_bottom = -334.0
-theme_override_colors/font_color = Color(0.13, 0.13, 0.2, 1)
-theme_override_font_sizes/font_size = 30
-text = "Use mouse for slingshot"
-
 [node name="Player" type="RigidBody2D" parent="." unique_id=79868923]
 position = Vector2(0, 90)
 lock_rotation = true
@@ -66,7 +57,7 @@ script = ExtResource("player_script")
 position = Vector2(0, 90)
 shape = SubResource("CircleShape2D_iadlp")
 
-[node name="Trail" parent="Player" instance=ExtResource("trail_scene")]
+[node name="Trail" parent="Player" unique_id=1258680432 instance=ExtResource("trail_scene")]
 position = Vector2(0, 90)
 
 [node name="Body" type="Polygon2D" parent="Player" unique_id=430824870]
@@ -168,7 +159,6 @@ strength = 1000.0
 [node name="BouncePad2" parent="." unique_id=1134803600 instance=ExtResource("pad_scene")]
 position = Vector2(1300, 150)
 rotation = -0.349066
-scale = Vector2(1, 1)
 strength = 1000.0
 
 [node name="Goal" parent="." unique_id=1742123123 instance=ExtResource("goal_scene")]

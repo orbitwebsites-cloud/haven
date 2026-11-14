@@ -7,6 +7,9 @@ const START := Vector2(400, 208)  # sitting on the launcher
 const PAD_HIT := Vector2(68, 246)  # where he smacks the intro pad
 const TITLE_SPOT := Vector2(0, -210)  # dead centre of the title
 
+# the intro only plays once. coming back here from the customize screen or haven skips it
+static var seen_intro := false
+
 var intro: Tween
 
 @onready var center: Control = $Center
@@ -15,10 +18,12 @@ var intro: Tween
 @onready var tagline: Label = $Center/Tagline
 @onready var buttons: VBoxContainer = $Center/Buttons
 @onready var play_button: Button = $Center/Buttons/Play
+@onready var look_button: Button = $Center/Buttons/Look
 @onready var quit_button: Button = $Center/Buttons/Quit
+@onready var stats: Label = $Center/Stats
 @onready var hint: Label = $Center/Hint
 @onready var pad = $Center/Pad
-@onready var mascot: Node2D = $Center/Mascot
+@onready var mascot = $Center/Mascot
 @onready var trail = $Center/Mascot/Trail
 @onready var goal: Node2D = $Center/Goal
 @onready var props: Node2D = $Center/Intro
@@ -32,8 +37,19 @@ var intro: Tween
 
 
 func _ready() -> void:
-	play_button.pressed.connect(_on_play_pressed)
+	play_button.pressed.connect(Game.start_run)
+	look_button.pressed.connect(_on_look_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
+	# a browser tab can't quit, so the button would just sit there doing nothing
+	quit_button.visible = not OS.has_feature("web")
+
+	mascot.dress(Game.color, Game.hat)
+
+	# brag line under the buttons. an empty haven gets roasted
+	if Game.citizens.is_empty():
+		stats.text = "haven pop: 0. kinda sad."
+	else:
+		stats.text = "haven pop: %d. record: lil guy #%d." % [Game.citizens.size(), Game.record]
 
 	# title rocks side to side a bit so the screen isn't dead
 	var rock := create_tween().set_loops().set_trans(Tween.TRANS_SINE)
@@ -41,11 +57,15 @@ func _ready() -> void:
 	rock.tween_property(title, "rotation", -0.04, 1.2)
 
 	play_intro()
+	if seen_intro:
+		intro.custom_step(60.0)
+	seen_intro = true
 
 
 func _input(event: InputEvent) -> void:
-	# any click or key = skip. it just fast forwards the intro to the end
-	if intro.is_running() and event.is_pressed() and (event is InputEventMouseButton or event is InputEventKey):
+	# any click or key = skip. it just fast forwards the intro to the end.
+	# once the buttons are up it's not a skip anymore, that press is for the button
+	if intro.is_running() and not buttons.visible and event.is_pressed() and (event is InputEventMouseButton or event is InputEventKey):
 		intro.custom_step(60.0)
 		# eat the press so it doesn't smack the play button too
 		get_viewport().set_input_as_handled()
@@ -57,13 +77,16 @@ func play_intro() -> void:
 	underline.clear_points()
 	tagline.visible_ratio = 0.0
 	buttons.hide()
+	stats.hide()
 	hint.hide()
 	goal.hide()
 	mascot.position = START
 	aim_line.scale = Vector2.ZERO
 
 	intro = create_tween()
+	say("u drew a lil guy in math. forgot legs.")
 	say("no walking.")
+	say("notebook check today. doodles get ripped out.")
 	say("no second tries.")
 	say("one shot.")
 
@@ -97,8 +120,8 @@ func play_intro() -> void:
 # scribbles a line onto the page, then leaves it up for a sec
 func say(line: String) -> void:
 	intro.tween_callback(story.set_text.bind(line))
-	intro.tween_property(story, "visible_ratio", 1.0, line.length() * 0.04).from(0.0)
-	intro.tween_interval(0.45)
+	intro.tween_property(story, "visible_ratio", 1.0, line.length() * 0.03).from(0.0)
+	intro.tween_interval(0.5)
 
 
 # chucks the mascot from one spot to another. arc = how high the throw loops
@@ -140,14 +163,15 @@ func start_hopping() -> void:
 func show_menu() -> void:
 	props.hide()
 	buttons.show()
+	stats.show()
 	hint.show()
 	goal.show()
 	# focus on play so enter works straight away
 	play_button.grab_focus()
 
 
-func _on_play_pressed() -> void:
-	get_tree().change_scene_to_file("res://level.tscn")
+func _on_look_pressed() -> void:
+	get_tree().change_scene_to_file("res://customize.tscn")
 
 
 func _on_quit_pressed() -> void:

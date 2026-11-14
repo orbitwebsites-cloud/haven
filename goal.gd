@@ -1,7 +1,17 @@
 extends Area2D
 
-# level order lives here. add a new level to the list and it just works
-const LEVELS := ["res://level.tscn", "res://level_2.tscn", "res://level_3.tscn"]
+# level order lives here. add a new level to the list and it just works (give it a note in game.gd too)
+const LEVELS := [
+	"res://level.tscn",
+	"res://level_2.tscn",
+	"res://level_3.tscn",
+	"res://level_4.tscn",
+	"res://level_5.tscn",
+	"res://level_6.tscn",
+	"res://level_7.tscn",
+	"res://level_8.tscn",
+	"res://level_9.tscn",
+]
 
 # leave empty to go to the next level. the secret level uses this for the goat screen
 @export_file("*.tscn") var next_scene := ""
@@ -36,6 +46,8 @@ func _on_body_entered(body: Node2D) -> void:
 func get_next_scene() -> String:
 	if next_scene:
 		return next_scene
-	# beat the last level (or one that's not in the list)? back to level 1 we go
 	var i := LEVELS.find(get_tree().current_scene.scene_file_path)
-	return LEVELS[(i + 1) % LEVELS.size()]
+	# beat the last page? that's the whole notebook. he made it to haven
+	if i == LEVELS.size() - 1:
+		return "res://haven.tscn"
+	return LEVELS[i + 1]
