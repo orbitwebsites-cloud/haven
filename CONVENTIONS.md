@@ -9,3 +9,6 @@ Slingshot bounce platformer, Godot 4.7.
 - player.gd uses `_input` because the ColorRects were eating clicks. If we add menu buttons, look at this again.
 - ball.svg and spikes.svg are placeholders until the real art is done.
 - Scripts and scenes sit in the root for now. Tabs, snake_case.
+- Levels: level.tscn -> level_2.tscn -> level_3.tscn -> back to level 1. The order lives in `LEVELS` at the top of goal.gd. A goal with `next_scene` set goes there instead.
+- Secret: the faint shimmer by the "LEVEL 3" title (secret_portal.tscn) leads to secret_level.tscn, whose goal opens goat_win.tscn.
+- player.tscn is the player with the character art. Levels 2, 3 and the secret level use it. Level 1 still has its own copy of the player.

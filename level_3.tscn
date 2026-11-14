@@ -1,0 +1,135 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://bounce_pad.tscn" id="pad"]
+[ext_resource type="PackedScene" path="res://spikes.tscn" id="spikes"]
+[ext_resource type="PackedScene" path="res://goal.tscn" id="goal"]
+[ext_resource type="PackedScene" path="res://secret_portal.tscn" id="portal"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_LeftWall"]
+size = Vector2(40.0, 1800.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_RightWall"]
+size = Vector2(40.0, 1800.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Platform"]
+size = Vector2(200.0, 20.0)
+
+[node name="Level3" type="Node2D"]
+
+[node name="Title" type="Label" parent="."]
+offset_left = -170.0
+offset_top = -20.0
+offset_right = 530.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.9)
+theme_override_font_sizes/font_size = 40
+text = "LEVEL 3 - THE CLIMB"
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-220.0, -600.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("RectangleShape2D_LeftWall")
+
+[node name="ColorRect" type="ColorRect" parent="LeftWall"]
+offset_left = -20.0
+offset_top = -900.0
+offset_right = 20.0
+offset_bottom = 900.0
+color = Color(0.25, 0.27, 0.33, 1)
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(620.0, -600.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("RectangleShape2D_RightWall")
+
+[node name="ColorRect" type="ColorRect" parent="RightWall"]
+offset_left = -20.0
+offset_top = -900.0
+offset_right = 20.0
+offset_bottom = 900.0
+color = Color(0.25, 0.27, 0.33, 1)
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(0.0, 200.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+shape = SubResource("RectangleShape2D_Platform")
+
+[node name="ColorRect" type="ColorRect" parent="Platform"]
+offset_left = -100.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 10.0
+color = Color(0.3, 0.69, 0.31, 1)
+
+[node name="BouncePad1" parent="." instance=ExtResource("pad")]
+position = Vector2(520.0, 60.0)
+rotation = -0.698132
+scale = Vector2(1.5, 1)
+strength = 1100.0
+
+[node name="BouncePad2" parent="." instance=ExtResource("pad")]
+position = Vector2(-120.0, -300.0)
+rotation = 0.698132
+scale = Vector2(1.5, 1)
+strength = 1100.0
+
+[node name="BouncePad3" parent="." instance=ExtResource("pad")]
+position = Vector2(520.0, -660.0)
+rotation = -0.698132
+scale = Vector2(1.5, 1)
+strength = 1100.0
+
+[node name="SpikeFloor" type="Node2D" parent="."]
+position = Vector2(0, 290.0)
+
+[node name="Spikes1" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(-192.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes2" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(-64.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes3" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(64.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes4" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(192.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes5" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(320.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes6" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(448.0, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes7" parent="SpikeFloor" instance=ExtResource("spikes")]
+position = Vector2(576.0, 0)
+scale = Vector2(2, 2)
+
+[node name="RightWallSpikes" parent="." instance=ExtResource("spikes")]
+position = Vector2(584.0, -280.0)
+rotation = -1.570796
+scale = Vector2(2, 2)
+
+[node name="LeftWallSpikes" parent="." instance=ExtResource("spikes")]
+position = Vector2(-184.0, -640.0)
+rotation = 1.570796
+scale = Vector2(2, 2)
+
+[node name="Goal" parent="." instance=ExtResource("goal")]
+position = Vector2(-120.0, -1020.0)
+scale = Vector2(1.5, 1.5)
+
+[node name="SecretPortal" parent="." instance=ExtResource("portal")]
+position = Vector2(-150.0, -45.0)
+
+[node name="Player" parent="." instance=ExtResource("player")]
+position = Vector2(0.0, 140.0)
