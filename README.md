@@ -81,6 +81,6 @@ Use flat colours for new art. The sketch shader adds the hand-drawn look on top.
 The font is [Patrick Hand](https://fonts.google.com/specimen/Patrick+Hand) by Patrick Wagesreiter, used under the SIL Open Font License (`patrick_hand_license.txt`). The sound effects are generated in code.
 
 `CONVENTIONS.md` has more detailed notes on how the scenes and scripts fit together.
-#AI USAGE
+## AI USAGE
 AI was used for code review to find bugs and basic movment logic and to move the sprite between scenes
 
