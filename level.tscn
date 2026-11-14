@@ -20,6 +20,9 @@ size = Vector2(40, 1200)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_BigWall"]
 size = Vector2(40, 300)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wall"]
+bounce = 0.6
+
 [node name="Level" type="Node2D" unique_id=927345106]
 position = Vector2(0, 90)
 
@@ -99,6 +102,7 @@ position_smoothing_enabled = true
 
 [node name="LeftWall" type="StaticBody2D" parent="." unique_id=858768822]
 position = Vector2(-320, -300)
+physics_material_override = SubResource("PhysicsMaterial_wall")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=240196572]
 shape = SubResource("RectangleShape2D_LeftWall")
@@ -112,6 +116,7 @@ color = Color(0.25, 0.27, 0.33, 1)
 
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=1727963192]
 position = Vector2(1620, -300)
+physics_material_override = SubResource("PhysicsMaterial_wall")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=351621079]
 shape = SubResource("RectangleShape2D_RightWall")
@@ -125,6 +130,7 @@ color = Color(0.25, 0.27, 0.33, 1)
 
 [node name="BigWall" type="StaticBody2D" parent="." unique_id=1660744514]
 position = Vector2(650, 150)
+physics_material_override = SubResource("PhysicsMaterial_wall")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigWall" unique_id=1405653425]
 shape = SubResource("RectangleShape2D_BigWall")

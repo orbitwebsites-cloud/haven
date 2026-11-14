@@ -8,6 +8,9 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bouncy"]
 bounce = 1.0
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wall"]
+bounce = 0.6
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_LeftWall"]
 size = Vector2(40.0, 1200.0)
 
@@ -39,6 +42,7 @@ text = "LEVEL 2 - BANK SHOT"
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
 position = Vector2(-320.0, -300.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
 shape = SubResource("RectangleShape2D_LeftWall")
@@ -52,6 +56,7 @@ color = Color(0.25, 0.27, 0.33, 1)
 
 [node name="RightWall" type="StaticBody2D" parent="."]
 position = Vector2(1300.0, -300.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
 shape = SubResource("RectangleShape2D_RightWall")
@@ -65,6 +70,7 @@ color = Color(0.25, 0.27, 0.33, 1)
 
 [node name="Roof" type="StaticBody2D" parent="."]
 position = Vector2(5.0, -90.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Roof"]
 shape = SubResource("RectangleShape2D_Roof")
@@ -92,6 +98,7 @@ color = Color(0.2, 0.75, 0.75, 1)
 
 [node name="Blocker" type="StaticBody2D" parent="."]
 position = Vector2(520.0, 165.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Blocker"]
 shape = SubResource("RectangleShape2D_Blocker")
@@ -180,6 +187,16 @@ scale = Vector2(2, 2)
 
 [node name="BankWallSpikes" parent="." instance=ExtResource("spikes")]
 position = Vector2(964.0, 86.0)
+rotation = -1.570796
+scale = Vector2(2, 2)
+
+[node name="BlockerSpikes1" parent="." instance=ExtResource("spikes")]
+position = Vector2(489.0, 110.0)
+rotation = -1.570796
+scale = Vector2(2, 2)
+
+[node name="BlockerSpikes2" parent="." instance=ExtResource("spikes")]
+position = Vector2(489.0, 230.0)
 rotation = -1.570796
 scale = Vector2(2, 2)
 

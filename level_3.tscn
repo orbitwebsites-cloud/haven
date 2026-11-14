@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" path="res://goal.tscn" id="goal"]
 [ext_resource type="PackedScene" path="res://secret_portal.tscn" id="portal"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wall"]
+bounce = 0.6
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_LeftWall"]
 size = Vector2(40.0, 1800.0)
 
@@ -28,6 +31,7 @@ text = "LEVEL 3 - THE CLIMB"
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
 position = Vector2(-220.0, -600.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
 shape = SubResource("RectangleShape2D_LeftWall")
@@ -41,6 +45,7 @@ color = Color(0.25, 0.27, 0.33, 1)
 
 [node name="RightWall" type="StaticBody2D" parent="."]
 position = Vector2(620.0, -600.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
 shape = SubResource("RectangleShape2D_RightWall")

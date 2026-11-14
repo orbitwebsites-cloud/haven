@@ -12,3 +12,4 @@ Slingshot bounce platformer, Godot 4.7.
 - Levels: level.tscn -> level_2.tscn -> level_3.tscn -> back to level 1. The order lives in `LEVELS` at the top of goal.gd. A goal with `next_scene` set goes there instead.
 - Secret: the faint shimmer by the "LEVEL 3" title (secret_portal.tscn) leads to secret_level.tscn, whose goal opens goat_win.tscn.
 - player.tscn is the player with the character art. Levels 2, 3 and the secret level use it. Level 1 still has its own copy of the player.
+- Gray walls bounce now: they use a PhysicsMaterial with bounce 0.6 (teal walls are 1.0, the start platform has none). bounce_pad.tscn keeps its art under a `Visual` node so the pad can squish when hit.
