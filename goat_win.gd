@@ -13,6 +13,7 @@ var can_leave := false
 
 func _ready() -> void:
 	var screen := get_viewport_rect().size
+	Game.play("win")
 	goat.position = Vector2(screen.x / 2, screen.y / 2 + 70)
 	confetti.position = Vector2(screen.x / 2, -20)
 	confetti.emission_rect_extents = Vector2(screen.x / 2, 10)
@@ -58,6 +59,6 @@ func pulse_title() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	# click or press anything to run it back from level 1
-	if can_leave and event.is_pressed() and not event.is_echo():
-		get_tree().change_scene_to_file("res://level.tscn")
+	# click or press anything to head back to the menu
+	if can_leave and event.is_pressed() and not event.is_echo() and (event is InputEventMouseButton or event is InputEventKey):
+		Game.go(Game.START_SCREEN)

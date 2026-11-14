@@ -8,6 +8,7 @@ const PAD_HIT := Vector2(68, 246)  # where he smacks the intro pad
 const TITLE_SPOT := Vector2(0, -210)  # dead centre of the title
 
 var intro: Tween
+var level_row: HBoxContainer
 
 @onready var center: Control = $Center
 @onready var title: Label = $Center/Title
@@ -34,6 +35,9 @@ var intro: Tween
 func _ready() -> void:
 	play_button.pressed.connect(_on_play_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
+	# a browser tab can't quit, so the button would just sit there doing nothing
+	quit_button.visible = not OS.has_feature("web")
+	make_level_row()
 
 	# title rocks side to side a bit so the screen isn't dead
 	var rock := create_tween().set_loops().set_trans(Tween.TRANS_SINE)
@@ -41,6 +45,10 @@ func _ready() -> void:
 	rock.tween_property(title, "rotation", -0.04, 1.2)
 
 	play_intro()
+	# seen it already this session? jump straight to the menu
+	if Game.intro_seen:
+		intro.custom_step(60.0)
+	Game.intro_seen = true
 
 
 func _input(event: InputEvent) -> void:
@@ -57,14 +65,17 @@ func play_intro() -> void:
 	underline.clear_points()
 	tagline.visible_ratio = 0.0
 	buttons.hide()
+	if level_row:
+		level_row.hide()
 	hint.hide()
 	goal.hide()
 	mascot.position = START
 	aim_line.scale = Vector2.ZERO
 
 	intro = create_tween()
+	say("this page is all spikes.")
+	say("the star is your haven.")
 	say("no walking.")
-	say("no second tries.")
 	say("one shot.")
 
 	# pull it baaack
@@ -140,14 +151,60 @@ func start_hopping() -> void:
 func show_menu() -> void:
 	props.hide()
 	buttons.show()
+	if level_row:
+		level_row.show()
 	hint.show()
 	goal.show()
 	# focus on play so enter works straight away
 	play_button.grab_focus()
 
 
+# row of page numbers under the buttons, one for every level u've reached
+func make_level_row() -> void:
+	if Game.unlocked < 2:
+		return
+	level_row = HBoxContainer.new()
+	level_row.position = Vector2(-150, 158)
+	level_row.size = Vector2(300, 44)
+	level_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	level_row.add_theme_constant_override("separation", 12)
+	center.add_child(level_row)
+
+	var label := Label.new()
+	label.text = "page"
+	label.add_theme_font_size_override("font_size", 26)
+	label.add_theme_color_override("font_color", Game.INK)
+	level_row.add_child(label)
+
+	var box := StyleBoxFlat.new()
+	box.bg_color = Color(1, 0.84, 0.3)
+	box.set_corner_radius_all(8)
+	var box_hover := box.duplicate()
+	box_hover.bg_color = Color(1, 0.66, 0.25)
+
+	for i in Game.unlocked:
+		var button := Button.new()
+		button.text = str(i + 1)
+		button.custom_minimum_size = Vector2(48, 44)
+		button.add_theme_font_size_override("font_size", 26)
+		for colour in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+			button.add_theme_color_override(colour, Game.INK)
+		button.add_theme_stylebox_override("normal", box)
+		button.add_theme_stylebox_override("hover", box_hover)
+		button.add_theme_stylebox_override("pressed", box_hover)
+		button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+		button.pressed.connect(_on_level_pressed.bind(Game.LEVELS[i]))
+		level_row.add_child(button)
+
+
 func _on_play_pressed() -> void:
-	get_tree().change_scene_to_file("res://level.tscn")
+	Game.new_run()
+	_on_level_pressed(Game.LEVELS[0])
+
+
+func _on_level_pressed(level: String) -> void:
+	Game.play("click")
+	Game.go(level)
 
 
 func _on_quit_pressed() -> void:
