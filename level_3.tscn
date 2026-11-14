@@ -68,19 +68,19 @@ color = Color(0.3, 0.69, 0.31, 1)
 [node name="BouncePad1" parent="." instance=ExtResource("pad")]
 position = Vector2(520.0, 60.0)
 rotation = -0.698132
-scale = Vector2(1.5, 1)
+scale = Vector2(0.6, 1)
 strength = 1100.0
 
 [node name="BouncePad2" parent="." instance=ExtResource("pad")]
 position = Vector2(-120.0, -300.0)
 rotation = 0.698132
-scale = Vector2(1.5, 1)
+scale = Vector2(0.8, 1)
 strength = 1100.0
 
 [node name="BouncePad3" parent="." instance=ExtResource("pad")]
 position = Vector2(520.0, -660.0)
 rotation = -0.698132
-scale = Vector2(1.5, 1)
+scale = Vector2(0.8, 1)
 strength = 1100.0
 
 [node name="SpikeFloor" type="Node2D" parent="."]
@@ -124,9 +124,14 @@ position = Vector2(-184.0, -640.0)
 rotation = 1.570796
 scale = Vector2(2, 2)
 
+[node name="UpperRightSpikes" parent="." instance=ExtResource("spikes")]
+position = Vector2(584.0, -480.0)
+rotation = -1.570796
+scale = Vector2(2, 2)
+
 [node name="Goal" parent="." instance=ExtResource("goal")]
 position = Vector2(-120.0, -1020.0)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(0.8, 0.8)
 
 [node name="SecretPortal" parent="." instance=ExtResource("portal")]
 position = Vector2(-150.0, -45.0)

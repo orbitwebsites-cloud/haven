@@ -20,6 +20,9 @@ size = Vector2(650.0, 30.0)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_BouncyWall"]
 size = Vector2(40.0, 650.0)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Blocker"]
+size = Vector2(30.0, 250.0)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_Platform"]
 size = Vector2(200.0, 20.0)
 
@@ -87,6 +90,19 @@ offset_right = 20.0
 offset_bottom = 325.0
 color = Color(0.2, 0.75, 0.75, 1)
 
+[node name="Blocker" type="StaticBody2D" parent="."]
+position = Vector2(520.0, 165.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocker"]
+shape = SubResource("RectangleShape2D_Blocker")
+
+[node name="ColorRect" type="ColorRect" parent="Blocker"]
+offset_left = -15.0
+offset_top = -125.0
+offset_right = 15.0
+offset_bottom = 125.0
+color = Color(0.25, 0.27, 0.33, 1)
+
 [node name="Platform" type="StaticBody2D" parent="."]
 position = Vector2(0.0, 100.0)
 
@@ -103,13 +119,12 @@ color = Color(0.3, 0.69, 0.31, 1)
 [node name="BouncePad1" parent="." instance=ExtResource("pad")]
 position = Vector2(320.0, 200.0)
 rotation = 0.523599
-scale = Vector2(1.75, 1)
 strength = 1000.0
 
 [node name="BouncePad2" parent="." instance=ExtResource("pad")]
 position = Vector2(720.0, 150.0)
 rotation = -0.610865
-scale = Vector2(2.0, 1)
+scale = Vector2(1.2, 1)
 strength = 1250.0
 
 [node name="SpikeFloor" type="Node2D" parent="."]
@@ -163,9 +178,14 @@ scale = Vector2(2, 2)
 position = Vector2(1152.0, 0)
 scale = Vector2(2, 2)
 
+[node name="BankWallSpikes" parent="." instance=ExtResource("spikes")]
+position = Vector2(964.0, 86.0)
+rotation = -1.570796
+scale = Vector2(2, 2)
+
 [node name="Goal" parent="." instance=ExtResource("goal")]
 position = Vector2(40.0, -380.0)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(1.0, 1.0)
 
 [node name="Player" parent="." instance=ExtResource("player")]
 position = Vector2(0.0, 40.0)
