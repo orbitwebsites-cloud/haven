@@ -102,8 +102,11 @@ func _draw_preview() -> void:
 		preview.draw_circle(speed * t + gravity * t * t * 0.5, 6.0 - i * 0.5, Color(0.13, 0.13, 0.2, 0.5))
 
 
-func _on_bump(_body: Node) -> void:
-	if has_shot and not freeze:
+func _on_bump(body: Node) -> void:
+	# paper walls rip when we hit em
+	if body.has_method("smash"):
+		body.smash()
+	elif has_shot and not freeze:
 		Game.play("tick")
 
 
@@ -117,9 +120,29 @@ func restart(quick := false) -> void:
 		get_tree().reload_current_scene.call_deferred()
 		return
 
-	# go red, fade out, then run it back
+	# ink splat, go red, fade out, then run it back
 	Game.play("die")
 	set_deferred("freeze", true)
+	splat()
 	var fade := create_tween()
 	fade.tween_property(self, "modulate", Color(1, 0.3, 0.3, 0), 0.25)
 	fade.tween_callback(get_tree().reload_current_scene)
+
+
+# blobs of ink fly off where we died. it sits next to us in the level so it doesn't fade with us
+func splat() -> void:
+	var ink := CPUParticles2D.new()
+	ink.position = aim_line.global_position
+	ink.amount = 18
+	ink.lifetime = 0.4
+	ink.one_shot = true
+	ink.explosiveness = 1.0
+	ink.spread = 180.0
+	ink.gravity = Vector2(0, 700)
+	ink.initial_velocity_min = 150.0
+	ink.initial_velocity_max = 420.0
+	ink.scale_amount_min = 5.0
+	ink.scale_amount_max = 12.0
+	ink.color = Color(0.13, 0.13, 0.2)
+	get_parent().add_child(ink)
+	ink.emitting = true

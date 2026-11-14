@@ -4,7 +4,10 @@ extends Node
 # the shot counter, the sounds, the lil hud in the corner and the fade between pages
 
 # level order lives here. add a new level to the list and it just works
-const LEVELS := ["res://level.tscn", "res://level_2.tscn", "res://level_3.tscn"]
+const LEVELS := [
+	"res://level.tscn", "res://level_2.tscn", "res://level_3.tscn",
+	"res://level_4.tscn", "res://level_5.tscn", "res://level_6.tscn",
+]
 const START_SCREEN := "res://start_screen.tscn"
 const ENDING := "res://ending.tscn"
 const SAVE_PATH := "user://save.cfg"
@@ -92,16 +95,23 @@ func save() -> void:
 
 # ---- changing scenes ----
 
-# fades to blank paper, swaps the scene, fades back. like turning the page
+# a blank sheet slides in from the right, the scene swaps behind it, then it slides off
+# the left. like turning the page
 func go(path: String) -> void:
 	if fading:
 		return
 	fading = true
+	var width := fade.size.x + 20.0
+	fade.position.x = width
+	fade.show()
 	var turn := create_tween()
-	turn.tween_property(fade, "color:a", 1.0, 0.15)
+	turn.tween_property(fade, "position:x", 0.0, 0.22).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	turn.tween_callback(get_tree().change_scene_to_file.bind(path))
-	turn.tween_property(fade, "color:a", 0.0, 0.2)
-	turn.tween_callback(func(): fading = false)
+	turn.tween_interval(0.05)
+	turn.tween_property(fade, "position:x", -width, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	turn.tween_callback(func():
+		fade.hide()
+		fading = false)
 
 
 # ---- hud ----
@@ -126,15 +136,24 @@ func make_hud() -> void:
 	keys.add_theme_color_override("font_color", Color(INK, 0.6))
 	hud.add_child(keys)
 
-	# the fade goes on top of everything, shader included
+	# the page-turn sheet goes on top of everything, shader included
 	var top := CanvasLayer.new()
 	top.layer = 60
 	add_child(top)
 	fade = ColorRect.new()
-	fade.color = Color(PAPER, 0.0)
+	fade.color = PAPER
 	fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	fade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	fade.hide()
 	top.add_child(fade)
+	# inky edges so u can see the sheet moving
+	for side in [Control.PRESET_LEFT_WIDE, Control.PRESET_RIGHT_WIDE]:
+		var edge := ColorRect.new()
+		edge.color = Color(INK, 0.7)
+		edge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		edge.set_anchors_preset(side)
+		edge.custom_minimum_size.x = 5
+		fade.add_child(edge)
 
 
 func hud_text(path: String) -> String:
@@ -161,6 +180,7 @@ func make_sounds() -> void:
 	sounds["boing"] = make_sound(0.28, func(t, p): return sweep(t, 0.28, 170.0, 560.0) * (1.0 - p))
 	sounds["tick"] = make_sound(0.06, func(t, p): return sin(TAU * 240.0 * t) * (1.0 - p) * (1.0 - p))
 	sounds["click"] = make_sound(0.05, func(t, p): return sin(TAU * 660.0 * t) * (1.0 - p))
+	sounds["rip"] = make_sound(0.16, func(_t, p): return randf_range(-1.0, 1.0) * (1.0 - p))
 	sounds["die"] = make_sound(0.3, func(t, p):
 		return (randf_range(-1.0, 1.0) * 0.6 + sweep(t, 0.3, 220.0, 50.0) * 0.6) * (1.0 - p) * (1.0 - p))
 	sounds["win"] = make_sound(0.5, func(t, p):

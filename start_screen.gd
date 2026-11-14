@@ -164,8 +164,8 @@ func make_level_row() -> void:
 	if Game.unlocked < 2:
 		return
 	level_row = HBoxContainer.new()
-	level_row.position = Vector2(-150, 158)
-	level_row.size = Vector2(300, 44)
+	level_row.position = Vector2(-300, 158)
+	level_row.size = Vector2(600, 44)
 	level_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	level_row.add_theme_constant_override("separation", 12)
 	center.add_child(level_row)

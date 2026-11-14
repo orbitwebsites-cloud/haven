@@ -1,0 +1,183 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://background.tscn" id="bg"]
+[ext_resource type="PackedScene" path="res://player.tscn" id="player"]
+[ext_resource type="PackedScene" path="res://bounce_pad.tscn" id="pad"]
+[ext_resource type="PackedScene" path="res://spikes.tscn" id="spikes"]
+[ext_resource type="PackedScene" path="res://goal.tscn" id="goal"]
+[ext_resource type="PackedScene" path="res://paper_wall.tscn" id="paper"]
+[ext_resource type="Script" path="res://mover.gd" id="mover"]
+[ext_resource type="StyleBoxFlat" path="res://wall_style.tres" id="wall_style"]
+[ext_resource type="StyleBoxFlat" path="res://bouncy_wall_style.tres" id="bouncy_style"]
+[ext_resource type="StyleBoxFlat" path="res://platform_style.tres" id="platform_style"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bouncy"]
+bounce = 1.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wall"]
+bounce = 0.6
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_LeftWall"]
+size = Vector2(40.0, 1200.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_RightWall"]
+size = Vector2(40.0, 1200.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Platform"]
+size = Vector2(200.0, 20.0)
+
+[node name="Level5" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("bg")]
+
+[node name="Title" type="Label" parent="."]
+offset_left = -170.0
+offset_top = -120.0
+offset_right = 730.0
+offset_bottom = -58.4
+rotation = 0.0
+theme_override_colors/font_color = Color(0.13, 0.13, 0.2, 1.0)
+theme_override_font_sizes/font_size = 44
+text = "LEVEL 5 - MOVING DAY"
+
+[node name="Note" type="Label" parent="."]
+offset_left = 330.0
+offset_top = 60.0
+offset_right = 730.0
+offset_bottom = 93.6
+rotation = -0.05
+theme_override_colors/font_color = Color(0.13, 0.13, 0.2, 0.6)
+theme_override_font_sizes/font_size = 24
+text = "it will not wait for u"
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-220.0, -300.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("RectangleShape2D_LeftWall")
+
+[node name="Panel" type="Panel" parent="LeftWall"]
+offset_left = -20.0
+offset_top = -600.0
+offset_right = 20.0
+offset_bottom = 600.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(1500.0, -300.0)
+physics_material_override = SubResource("PhysicsMaterial_wall")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("RectangleShape2D_RightWall")
+
+[node name="Panel" type="Panel" parent="RightWall"]
+offset_left = -20.0
+offset_top = -600.0
+offset_right = 20.0
+offset_bottom = 600.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("wall_style")
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(0.0, 200.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+shape = SubResource("RectangleShape2D_Platform")
+
+[node name="Panel" type="Panel" parent="Platform"]
+offset_left = -100.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 10.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("platform_style")
+
+[node name="MovingPad" parent="." instance=ExtResource("pad")]
+position = Vector2(450.0, 190.0)
+rotation = 0.4
+scale = Vector2(1.0, 1)
+strength = 1100.0
+
+[node name="Mover" type="Node" parent="MovingPad"]
+script = ExtResource("mover")
+travel = Vector2(400.0, 0.0)
+period = 3.0
+
+[node name="FloorSpikes1" parent="." instance=ExtResource("spikes")]
+position = Vector2(-192.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes2" parent="." instance=ExtResource("spikes")]
+position = Vector2(-64.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes3" parent="." instance=ExtResource("spikes")]
+position = Vector2(64.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes4" parent="." instance=ExtResource("spikes")]
+position = Vector2(192.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes5" parent="." instance=ExtResource("spikes")]
+position = Vector2(320.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes6" parent="." instance=ExtResource("spikes")]
+position = Vector2(448.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes7" parent="." instance=ExtResource("spikes")]
+position = Vector2(576.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes8" parent="." instance=ExtResource("spikes")]
+position = Vector2(704.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes9" parent="." instance=ExtResource("spikes")]
+position = Vector2(832.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes10" parent="." instance=ExtResource("spikes")]
+position = Vector2(960.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes11" parent="." instance=ExtResource("spikes")]
+position = Vector2(1088.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes12" parent="." instance=ExtResource("spikes")]
+position = Vector2(1216.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes13" parent="." instance=ExtResource("spikes")]
+position = Vector2(1344.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="FloorSpikes14" parent="." instance=ExtResource("spikes")]
+position = Vector2(1472.0, 290.0)
+rotation = 0.0
+scale = Vector2(2, 2)
+
+[node name="Goal" parent="." instance=ExtResource("goal")]
+position = Vector2(1150.0, -320.0)
+scale = Vector2(0.8, 0.8)
+
+[node name="Player" parent="." instance=ExtResource("player")]
+position = Vector2(0.0, 140.0)
