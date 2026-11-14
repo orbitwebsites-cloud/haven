@@ -16,3 +16,4 @@ Slingshot bounce platformer, Godot 4.7.
 - Look: hand-drawn notebook doodle. background.tscn (in every scene) is the paper plus a full-screen sketch.gdshader that adds the wobbly pen outlines, marker streaks and ruled lines, so just use flat colours and the shader does the rest. To change the mood, change the shader's paper_color / ink_color / rule_color.
 - Text uses hand_font.tres, a SystemFont (Ink Free, then Segoe Print, then Comic Sans), set as the project's custom font. It needs one of those fonts installed, which Windows has.
 - start_screen.tscn is the main scene (PLAY goes to level.tscn). trail.tscn + trail.gd is the player's speed line.
+- The intro lives in start_screen.gd `play_intro()`: one Tween that types the rules, launches the mascot and ends on the normal menu. Any click or key skips it (`custom_step`). Intro-only props sit under `Center/Intro` and get hidden at the end.

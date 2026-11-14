@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" path="res://background.tscn" id="bg"]
 [ext_resource type="PackedScene" path="res://bounce_pad.tscn" id="pad"]
 [ext_resource type="PackedScene" path="res://goal.tscn" id="goal"]
+[ext_resource type="PackedScene" path="res://trail.tscn" id="trail"]
+[ext_resource type="StyleBoxFlat" path="res://platform_style.tres" id="platform_style"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_play"]
 bg_color = Color(1, 0.84, 0.3, 1)
@@ -95,6 +97,7 @@ offset_left = -150.0
 offset_top = -30.0
 offset_right = 150.0
 offset_bottom = 160.0
+pivot_offset = Vector2(150, 95)
 theme_override_constants/separation = 24
 
 [node name="Play" type="Button" parent="Center/Buttons"]
@@ -136,12 +139,57 @@ theme_override_font_sizes/font_size = 26
 text = "drag the mouse back and let go to launch"
 horizontal_alignment = 1
 
+[node name="Intro" type="Node2D" parent="Center"]
+
+[node name="Launcher" type="Panel" parent="Center/Intro"]
+offset_left = 300.0
+offset_top = 240.0
+offset_right = 500.0
+offset_bottom = 260.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("platform_style")
+
+[node name="IntroPad" parent="Center/Intro" instance=ExtResource("pad")]
+position = Vector2(75, 290)
+rotation = -0.15
+scale = Vector2(1.2, 1.2)
+
+[node name="AimLine" type="Line2D" parent="Center/Intro"]
+position = Vector2(400, 208)
+points = PackedVector2Array(0, 0, -120, -72)
+width = 6.0
+default_color = Color(1, 0.3, 0.3, 1)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Story" type="Label" parent="Center/Intro"]
+offset_left = -400.0
+offset_top = -90.0
+offset_right = 400.0
+offset_bottom = -10.0
+theme_override_colors/font_color = Color(0.13, 0.13, 0.2, 1)
+theme_override_font_sizes/font_size = 56
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkipHint" type="Label" parent="Center/Intro"]
+offset_left = 330.0
+offset_top = 282.0
+offset_right = 560.0
+offset_bottom = 312.0
+theme_override_colors/font_color = Color(0.13, 0.13, 0.2, 0.5)
+theme_override_font_sizes/font_size = 20
+text = "click to skip"
+horizontal_alignment = 2
+
 [node name="Pad" parent="Center" instance=ExtResource("pad")]
 position = Vector2(-380, 190)
 scale = Vector2(1.4, 1.4)
 
 [node name="Mascot" type="Node2D" parent="Center"]
 position = Vector2(-380, 132)
+
+[node name="Trail" parent="Center/Mascot" instance=ExtResource("trail")]
 
 [node name="Body" type="Polygon2D" parent="Center/Mascot"]
 color = Color(0.3, 0.6, 1, 1)
