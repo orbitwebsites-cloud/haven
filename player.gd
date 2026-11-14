@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+# the main guy. no walking, u get ONE slingshot shot per try. miss it = skill issue
+
 @export var power := 6.0
 @export var max_pull := 200.0
 @export var fall_limit := 2000.0
@@ -14,13 +16,14 @@ var restarting := false
 
 
 func _input(event: InputEvent) -> void:
-	# not _unhandled_input, the ColorRects in the level were eating the clicks
+	# gotta be _input not _unhandled_input, the ColorRects were lowkey stealing every click
 	if has_shot or not (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT):
 		return
 
 	if event.pressed:
 		aiming = true
 	elif aiming:
+		# let go = we yeet
 		aiming = false
 		has_shot = true
 		aim_line.clear_points()
@@ -31,15 +34,17 @@ func _process(_delta: float) -> void:
 	if aiming:
 		aim_line.points = PackedVector2Array([Vector2.ZERO, get_pull()])
 
+	# fell off the map, that's crazy. run it back
 	if global_position.y > fall_limit:
 		restart()
 
 
 func _physics_process(delta: float) -> void:
-	# the goal freezes us, don't restart while the win text is up
+	# the goal freezes us, so don't reset while we're busy winning
 	if not has_shot or freeze:
 		return
 
+	# shot's gone and we're just chilling there? it's over, reset
 	if linear_velocity.length() < 10.0:
 		still_timer += delta
 		if still_timer >= stuck_restart_time:
@@ -48,12 +53,12 @@ func _physics_process(delta: float) -> void:
 		still_timer = 0.0
 
 
-# drag away from where you want to go, like pulling back a slingshot
+# pull back away from where u wanna go, like a real slingshot
 func get_pull() -> Vector2:
 	return (global_position - get_global_mouse_position()).limit_length(max_pull)
 
 
-# spikes call this too, and you can touch two of them in the same frame
+# spikes call this too and u can hit two at once, so only reset one time fr
 func restart() -> void:
 	if restarting:
 		return

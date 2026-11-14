@@ -1,5 +1,7 @@
 extends Control
 
+# u beat the secret level so ur literally him. this is the victory lap
+
 @onready var goat: Node2D = $Goat
 @onready var shades: Node2D = $Goat/Shades
 @onready var title: Label = $Title
@@ -15,7 +17,7 @@ func _ready() -> void:
 	confetti.position = Vector2(screen.x / 2, -20)
 	confetti.emission_rect_extents = Vector2(screen.x / 2, 10)
 
-	# goat bobs and sways forever
+	# goat vibing on loop, bobbing and swaying
 	var bob := create_tween().set_loops().set_trans(Tween.TRANS_SINE)
 	bob.tween_property(goat, "position:y", goat.position.y - 18, 0.35)
 	bob.tween_property(goat, "position:y", goat.position.y, 0.35)
@@ -23,14 +25,14 @@ func _ready() -> void:
 	sway.tween_property(goat, "rotation", 0.08, 0.7)
 	sway.tween_property(goat, "rotation", -0.08, 0.7)
 
-	# shades drop in from above
+	# shades drop outta the sky. deal with it
 	var shades_spot := shades.position
 	shades.position.y -= 500
 	var drop := create_tween()
 	drop.tween_interval(0.6)
 	drop.tween_property(shades, "position", shades_spot, 0.5).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 
-	# title pops in once the shades land, then keeps pulsing
+	# title pops in once the shades land, then keeps pulsing bc why not
 	title.pivot_offset = Vector2(screen.x / 2, 60)
 	title.scale = Vector2.ZERO
 	var pop := create_tween()
@@ -38,7 +40,7 @@ func _ready() -> void:
 	pop.tween_property(title, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	pop.tween_callback(pulse_title)
 
-	# wait a bit before allowing a click, so the winning click doesn't skip this
+	# wait a sec before clicks count, so the winning click doesn't skip the whole thing
 	hint.modulate.a = 0.0
 	var show_hint := create_tween()
 	show_hint.tween_interval(2.0)
@@ -56,5 +58,6 @@ func pulse_title() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	# click or press anything to run it back from level 1
 	if can_leave and event.is_pressed() and not event.is_echo():
 		get_tree().change_scene_to_file("res://level.tscn")
