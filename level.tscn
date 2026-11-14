@@ -21,9 +21,10 @@ size = Vector2(40, 1200)
 size = Vector2(40, 300)
 
 [node name="Level" type="Node2D" unique_id=927345106]
+position = Vector2(0, 90)
 
 [node name="Platform" type="StaticBody2D" parent="." unique_id=1157057678]
-position = Vector2(-1, 0)
+position = Vector2(-1, 90)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform" unique_id=6639482]
 position = Vector2(0, 144)
@@ -36,39 +37,55 @@ offset_right = 102.0
 offset_bottom = 156.0
 color = Color(0.29803923, 0.6862745, 0.3137255, 1)
 
+[node name="TextEdit" type="TextEdit" parent="Platform" unique_id=1810677537]
+offset_left = -252.0
+offset_top = -378.0
+offset_right = -36.0
+offset_bottom = -338.0
+text = "Use mouse for slingshot
+"
+
 [node name="Player" type="RigidBody2D" parent="." unique_id=79868923]
-position = Vector2(0, -30)
+position = Vector2(0, 90)
 lock_rotation = true
 continuous_cd = 1
 script = ExtResource("player_script")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=996561266]
+position = Vector2(0, 90)
 shape = SubResource("CircleShape2D_iadlp")
 
-[node name="Body" type="Polygon2D" parent="Player"]
+[node name="Body" type="Polygon2D" parent="Player" unique_id=430824870]
+position = Vector2(0, 90)
 color = Color(0.3, 0.6, 1, 1)
 polygon = PackedVector2Array(32, 0, 31.39, 6.24, 29.56, 12.25, 26.61, 17.78, 22.63, 22.63, 17.78, 26.61, 12.25, 29.56, 6.24, 31.39, 0, 32, -6.24, 31.39, -12.25, 29.56, -17.78, 26.61, -22.63, 22.63, -26.61, 17.78, -29.56, 12.25, -31.39, 6.24, -32, 0, -31.39, -6.24, -29.56, -12.25, -26.61, -17.78, -22.63, -22.63, -17.78, -26.61, -12.25, -29.56, -6.24, -31.39, 0, -32, 6.24, -31.39, 12.25, -29.56, 17.78, -26.61, 22.63, -22.63, 26.61, -17.78, 29.56, -12.25, 31.39, -6.24)
 
-[node name="LeftEye" type="Polygon2D" parent="Player"]
+[node name="LeftEye" type="Polygon2D" parent="Player" unique_id=1218629694]
+position = Vector2(0, 90)
 polygon = PackedVector2Array(-20, -18, -8, -18, -8, -6, -20, -6)
 
-[node name="LeftPupil" type="Polygon2D" parent="Player"]
+[node name="LeftPupil" type="Polygon2D" parent="Player" unique_id=1944877924]
+position = Vector2(0, 90)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-15, -14, -10, -14, -10, -9, -15, -9)
 
-[node name="RightEye" type="Polygon2D" parent="Player"]
+[node name="RightEye" type="Polygon2D" parent="Player" unique_id=358307476]
+position = Vector2(0, 90)
 polygon = PackedVector2Array(8, -18, 20, -18, 20, -6, 8, -6)
 
-[node name="RightPupil" type="Polygon2D" parent="Player"]
+[node name="RightPupil" type="Polygon2D" parent="Player" unique_id=1060758945]
+position = Vector2(0, 90)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(13, -14, 18, -14, 18, -9, 13, -9)
 
-[node name="Smile" type="Line2D" parent="Player"]
+[node name="Smile" type="Line2D" parent="Player" unique_id=1628002418]
+position = Vector2(0, 90)
 points = PackedVector2Array(-14, 6, -8, 13, 0, 15, 8, 13, 14, 6)
 width = 4.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="AimLine" type="Line2D" parent="Player" unique_id=1405291834]
+position = Vector2(0, 90)
 width = 4.0
 default_color = Color(1, 0.3, 0.3, 1)
 
