@@ -13,4 +13,6 @@ Slingshot bounce platformer, Godot 4.7.
 - Secret: the faint shimmer by the "LEVEL 3" title (secret_portal.tscn) leads to secret_level.tscn, whose goal opens goat_win.tscn.
 - player.tscn is the player with the character art. Levels 2, 3 and the secret level use it. Level 1 still has its own copy of the player.
 - Gray walls bounce now: they use a PhysicsMaterial with bounce 0.6 (teal walls are 1.0, the start platform has none). bounce_pad.tscn keeps its art under a `Visual` node so the pad can squish when hit.
-- Look: every level instances background.tscn (night sky, stars and the glow environment). HDR 2D is on in project settings, so any colour above 1 glows (pad tops, goal, teal walls, trail). Walls and platforms are Panels using wall_style.tres / bouncy_wall_style.tres / platform_style.tres. trail.tscn is the player's comet trail and soft_dot.tres is the soft round particle texture.
+- Look: hand-drawn notebook doodle. background.tscn (in every scene) is the paper plus a full-screen sketch.gdshader that adds the wobbly pen outlines, marker streaks and ruled lines, so just use flat colours and the shader does the rest. To change the mood, change the shader's paper_color / ink_color / rule_color.
+- Text uses hand_font.tres, a SystemFont (Ink Free, then Segoe Print, then Comic Sans), set as the project's custom font. It needs one of those fonts installed, which Windows has.
+- start_screen.tscn is the main scene (PLAY goes to level.tscn). trail.tscn + trail.gd is the player's speed line.

@@ -13,7 +13,7 @@ var still_timer := 0.0
 var restarting := false
 
 @onready var aim_line: Line2D = $AimLine
-@onready var trail: CPUParticles2D = $Trail
+@onready var trail = $Trail
 
 
 func _input(event: InputEvent) -> void:
@@ -35,8 +35,8 @@ func _process(_delta: float) -> void:
 	if aiming:
 		aim_line.points = PackedVector2Array([Vector2.ZERO, get_pull()])
 
-	# lil comet trail while we're flying
-	trail.emitting = has_shot and linear_velocity.length() > 60.0
+	# speed line behind us while we're flying
+	trail.active = has_shot and linear_velocity.length() > 60.0
 
 	# fell off the map, that's crazy. run it back
 	if global_position.y > fall_limit:

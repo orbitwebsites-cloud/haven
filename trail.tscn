@@ -1,17 +1,16 @@
 [gd_scene format=3]
 
-[ext_resource type="GradientTexture2D" path="res://soft_dot.tres" id="dot"]
+[ext_resource type="Script" path="res://trail.gd" id="1"]
 
-[sub_resource type="Gradient" id="Gradient_fade"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+[sub_resource type="Curve" id="Curve_taper"]
+_data = [Vector2(0, 0.1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[node name="Trail" type="CPUParticles2D"]
-emitting = false
-amount = 30
-lifetime = 0.5
-texture = ExtResource("dot")
-gravity = Vector2(0, 0)
-scale_amount_min = 1.0
-scale_amount_max = 1.6
-color = Color(0.5, 0.9, 2, 0.5)
-color_ramp = SubResource("Gradient_fade")
+[node name="Trail" type="Line2D"]
+width = 22.0
+width_curve = SubResource("Curve_taper")
+default_color = Color(0.55, 0.75, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("1")
