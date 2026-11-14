@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://dde0ndyea1wel"]
+
+[ext_resource type="PackedScene" path="res://goal.tscn" id="goal_scene"]
+[ext_resource type="PackedScene" path="res://bounce_pad.tscn" id="pad_scene"]
+[ext_resource type="Script" uid="uid://ddrgteiv40wxk" path="res://player.gd" id="player_script"]
+[ext_resource type="PackedScene" path="res://spikes.tscn" id="spikes_scene"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ootsg"]
+size = Vector2(200, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iadlp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_LeftWall"]
+size = Vector2(40, 1200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_RightWall"]
+size = Vector2(40, 1200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_BigWall"]
+size = Vector2(40, 300)
+
+[node name="Level" type="Node2D" unique_id=927345106]
+
+[node name="Platform" type="StaticBody2D" parent="." unique_id=1157057678]
+position = Vector2(-1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform" unique_id=6639482]
+position = Vector2(0, 144)
+shape = SubResource("RectangleShape2D_ootsg")
+
+[node name="ColorRect" type="ColorRect" parent="Platform" unique_id=1775615951]
+offset_left = -98.0
+offset_top = 136.0
+offset_right = 102.0
+offset_bottom = 156.0
+color = Color(0.29803923, 0.6862745, 0.3137255, 1)
+
+[node name="Player" type="RigidBody2D" parent="." unique_id=79868923]
+position = Vector2(0, -30)
+lock_rotation = true
+continuous_cd = 1
+script = ExtResource("player_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=996561266]
+shape = SubResource("CircleShape2D_iadlp")
+
+[node name="AimLine" type="Line2D" parent="Player" unique_id=1405291834]
+width = 4.0
+default_color = Color(1, 0.3, 0.3, 1)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1566356729]
+position = Vector2(0, 89)
+limit_left = -344
+limit_top = -9999932
+limit_right = 1636
+limit_bottom = 408
+position_smoothing_enabled = true
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=858768822]
+position = Vector2(-320, -300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=240196572]
+shape = SubResource("RectangleShape2D_LeftWall")
+
+[node name="ColorRect" type="ColorRect" parent="LeftWall" unique_id=21147775]
+offset_left = -20.0
+offset_top = -600.0
+offset_right = 20.0
+offset_bottom = 600.0
+color = Color(0.25, 0.27, 0.33, 1)
+
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=1727963192]
+position = Vector2(1620, -300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=351621079]
+shape = SubResource("RectangleShape2D_RightWall")
+
+[node name="ColorRect" type="ColorRect" parent="RightWall" unique_id=1075664047]
+offset_left = -20.0
+offset_top = -600.0
+offset_right = 20.0
+offset_bottom = 600.0
+color = Color(0.25, 0.27, 0.33, 1)
+
+[node name="BigWall" type="StaticBody2D" parent="." unique_id=1660744514]
+position = Vector2(650, 150)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BigWall" unique_id=1405653425]
+shape = SubResource("RectangleShape2D_BigWall")
+
+[node name="ColorRect" type="ColorRect" parent="BigWall" unique_id=512559400]
+offset_left = -20.0
+offset_top = -150.0
+offset_right = 20.0
+offset_bottom = 150.0
+color = Color(0.25, 0.27, 0.33, 1)
+
+[node name="WallTopSpikes" parent="." unique_id=90711932 instance=ExtResource("spikes_scene")]
+position = Vector2(650, -12)
+scale = Vector2(0.625, 1.5)
+
+[node name="BouncePad1" parent="." unique_id=1228808319 instance=ExtResource("pad_scene")]
+position = Vector2(300, 150)
+rotation = 0.785398
+strength = 1000.0
+
+[node name="BouncePad2" parent="." unique_id=1134803600 instance=ExtResource("pad_scene")]
+position = Vector2(1300, 150)
+rotation = -0.349066
+scale = Vector2(2, 1)
+strength = 1000.0
+
+[node name="Goal" parent="." unique_id=1742123123 instance=ExtResource("goal_scene")]
+position = Vector2(980, -290)
+scale = Vector2(2, 2)
+
+[node name="SpikeFloor" type="Node2D" parent="." unique_id=523882138]
+position = Vector2(0, 290)
+
+[node name="Spikes1" parent="SpikeFloor" unique_id=1311818593 instance=ExtResource("spikes_scene")]
+position = Vector2(-256, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes2" parent="SpikeFloor" unique_id=1491621130 instance=ExtResource("spikes_scene")]
+position = Vector2(-128, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes3" parent="SpikeFloor" unique_id=1272717451 instance=ExtResource("spikes_scene")]
+scale = Vector2(2, 2)
+
+[node name="Spikes4" parent="SpikeFloor" unique_id=2015726075 instance=ExtResource("spikes_scene")]
+position = Vector2(128, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes5" parent="SpikeFloor" unique_id=1939064051 instance=ExtResource("spikes_scene")]
+position = Vector2(256, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes6" parent="SpikeFloor" unique_id=345626962 instance=ExtResource("spikes_scene")]
+position = Vector2(384, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes7" parent="SpikeFloor" unique_id=402622478 instance=ExtResource("spikes_scene")]
+position = Vector2(512, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes8" parent="SpikeFloor" unique_id=127723412 instance=ExtResource("spikes_scene")]
+position = Vector2(640, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes9" parent="SpikeFloor" unique_id=1418989851 instance=ExtResource("spikes_scene")]
+position = Vector2(768, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes10" parent="SpikeFloor" unique_id=253171402 instance=ExtResource("spikes_scene")]
+position = Vector2(896, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes11" parent="SpikeFloor" unique_id=1246367058 instance=ExtResource("spikes_scene")]
+position = Vector2(1024, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes12" parent="SpikeFloor" unique_id=2079526456 instance=ExtResource("spikes_scene")]
+position = Vector2(1152, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes13" parent="SpikeFloor" unique_id=556239551 instance=ExtResource("spikes_scene")]
+position = Vector2(1280, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes14" parent="SpikeFloor" unique_id=929981215 instance=ExtResource("spikes_scene")]
+position = Vector2(1408, 0)
+scale = Vector2(2, 2)
+
+[node name="Spikes15" parent="SpikeFloor" unique_id=593235083 instance=ExtResource("spikes_scene")]
+position = Vector2(1536, 0)
+scale = Vector2(2, 2)
